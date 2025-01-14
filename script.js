@@ -85,3 +85,44 @@ document.getElementById('reset').addEventListener('click', resetTimer);
 
 // Initial display setup
 updateTimerDisplay();
+// Task List Logic
+const taskInput = document.getElementById("task-input");
+const taskList = document.getElementById("task-list");
+const addTaskButton = document.getElementById("add-task");
+
+// Add Task
+const addTask = () => {
+  const taskText = taskInput.value.trim();
+  if (taskText === "") return;
+
+  const taskItem = document.createElement("li");
+
+  // Task text
+  const taskSpan = document.createElement("span");
+  taskSpan.textContent = taskText;
+
+  // Delete button
+  const deleteButton = document.createElement("button");
+  deleteButton.textContent = "Delete";
+  deleteButton.addEventListener("click", () => taskItem.remove());
+
+  // Append to task item
+  taskItem.appendChild(taskSpan);
+  taskItem.appendChild(deleteButton);
+
+  // Append to task list
+  taskList.appendChild(taskItem);
+
+  // Clear input field
+  taskInput.value = "";
+};
+
+// Event Listener for Add Task Button
+addTaskButton.addEventListener("click", addTask);
+
+// Add Task with Enter Key
+taskInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    addTask();
+  }
+});
